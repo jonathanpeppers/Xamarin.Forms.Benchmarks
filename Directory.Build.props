@@ -1,0 +1,8 @@
+<Project>
+  <!--Common NuGet packages for all projects-->
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.12.1.1356" />
+    <PackageReference Include="BenchmarkDotNet.Annotations" Version="0.12.1.1356" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.657" />
+  </ItemGroup>
+</Project>
