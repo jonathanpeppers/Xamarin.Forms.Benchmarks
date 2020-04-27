@@ -22,7 +22,7 @@ namespace Xamarin.Forms.Benchmarks
 			try {
 				var logger = new AccumulationLogger ();
 				await Task.Run (() => {
-					var summary = BenchmarkRunner.Run<IntroBasic> ();
+					var summary = BenchmarkRunner.Run<Bindings> ();
 					MarkdownExporter.Console.ExportToLog (summary, logger);
 					ConclusionHelper.Print (logger,
 						summary.BenchmarksCases
