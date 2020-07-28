@@ -23,7 +23,7 @@
             Text="Run"
             Margin="10,10,10,0"
             Clicked="Button_Clicked" />
-        <ScrollView Orientation="Both" Grid.Row="1">
+        <ScrollView x:Name="Scroller" Orientation="Both" Grid.Row="1">
             <Label
                 x:Name="Summary"
                 Grid.Row="1"

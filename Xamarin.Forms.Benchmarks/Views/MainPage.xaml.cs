@@ -1,11 +1,11 @@
-﻿using BenchmarkDotNet.Analysers;
-using BenchmarkDotNet.Exporters;
+using BenchmarkDotNet.Analysers;
+using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Loggers;
 using BenchmarkDotNet.Running;
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace Xamarin.Forms.Benchmarks
 {
@@ -20,19 +20,15 @@ namespace Xamarin.Forms.Benchmarks
 		{
 			SetIsRunning (true);
 			try {
-				var logger = new AccumulationLogger ();
-				await Task.Run (() => {
-					var summary = BenchmarkRunner.Run<Bindings> ();
-					MarkdownExporter.Console.ExportToLog (summary, logger);
-					ConclusionHelper.Print (logger,
-						summary.BenchmarksCases
-							.SelectMany (benchmark => benchmark.Config.GetCompositeAnalyser ().Analyse (summary))
-							.Distinct ()
-							.ToList ());
-				});
-				SetSummary (logger.GetLog ());
+				var logger = new ActionLogger (SetSummary);
+				var summary = await Task.Run (() => BenchmarkRunner.Run<Bindings> (DefaultConfig.Instance.AddLogger (logger)));
+				ConclusionHelper.Print (logger,
+					summary.BenchmarksCases
+						.SelectMany (benchmark => benchmark.Config.GetCompositeAnalyser ().Analyse (summary))
+						.Distinct ()
+						.ToList ());
 			} catch (Exception exc) {
-				await DisplayAlert ("Error", exc.Message, "Ok");
+				SetSummary ("Unhandled exception: " + exc);
 			} finally {
 				SetIsRunning (false);
 			}
@@ -41,16 +37,62 @@ namespace Xamarin.Forms.Benchmarks
 		void SetIsRunning (bool isRunning)
 		{
 			Indicator.IsRunning = isRunning;
-			Run.IsVisible =
-				Summary.IsVisible = !isRunning;
+			Run.IsVisible = !isRunning;
+			if (isRunning) {
+				Summary.Text = "";
+			}
+			ResizeSummary ();
 		}
 
+		/// <summary>
+		/// NOTE: called from background thread
+		/// </summary>
 		void SetSummary (string text)
 		{
-			Summary.Text = text;
+			Device.BeginInvokeOnMainThread (() => {
+				Summary.Text = text;
+				ResizeSummary ();
+			});
+		}
+
+		void ResizeSummary ()
+		{
+			Summary.WidthRequest = Summary.HeightRequest = -1;
 			var size = Summary.Measure (double.MaxValue, double.MaxValue).Request;
 			Summary.WidthRequest = size.Width;
 			Summary.HeightRequest = size.Height;
+			Scroller.ScrollToAsync (0, size.Height, false);
+		}
+
+		class ActionLogger : ILogger
+		{
+			readonly StringBuilder builder = new StringBuilder ();
+			readonly Action<string> callback;
+
+			public ActionLogger (Action<string> callback)
+			{
+				this.callback = callback;
+			}
+
+			public string Id => nameof (ActionLogger);
+
+			public int Priority => 0;
+
+			public void Flush () => callback (builder.ToString ());
+
+			public void Write (LogKind logKind, string text) => builder.Append (text);
+
+			public void WriteLine ()
+			{
+				builder.AppendLine ();
+				Flush ();
+			}
+
+			public void WriteLine (LogKind logKind, string text)
+			{
+				builder.AppendLine (text);
+				Flush ();
+			}
 		}
 	}
 }
