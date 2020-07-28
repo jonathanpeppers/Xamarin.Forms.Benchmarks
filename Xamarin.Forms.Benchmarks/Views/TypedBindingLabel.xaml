@@ -5,4 +5,5 @@
     xmlns:local="clr-namespace:Xamarin.Forms.Benchmarks"
     x:Class="Xamarin.Forms.Benchmarks.TypedBindingLabel"
     x:DataType="local:BindingData"
+    Text="{Binding Text}"
  />
