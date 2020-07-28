@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 
@@ -12,25 +11,24 @@ namespace Xamarin.Forms.Benchmarks
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
 	public class Bindings
 	{
+		BindingData bindingContext = new BindingData {
+			Text = "Foo"
+		};
+
 		[Benchmark]
 		public void ByHand ()
 		{
-			var label = new Label {
-				BindingContext = new BindingData {
-					Text = "Foo"
-				}
-			};
+			var label = new Label ();
 			var binding = new Binding ("Text");
 			label.SetBinding (Label.TextProperty, binding);
+			label.BindingContext = bindingContext;
 		}
 
 		[Benchmark]
 		public void XamlC ()
 		{
 			var label = new BindingLabel {
-				BindingContext = new BindingData {
-					Text = "Foo"
-				}
+				BindingContext = bindingContext,
 			};
 		}
 
@@ -38,9 +36,7 @@ namespace Xamarin.Forms.Benchmarks
 		public void Typed ()
 		{
 			var label = new TypedBindingLabel {
-				BindingContext = new BindingData {
-					Text = "Foo"
-				}
+				BindingContext = bindingContext,
 			};
 		}
 	}
