@@ -21,7 +21,7 @@ namespace Xamarin.Forms.Benchmarks
 			SetIsRunning (true);
 			try {
 				var logger = new ActionLogger (SetSummary);
-				var summary = await Task.Run (() => BenchmarkRunner.Run<Bindings> (DefaultConfig.Instance.AddLogger (logger)));
+				var summary = await Task.Run (() => BenchmarkRunner.Run<Layouts> (DefaultConfig.Instance.AddLogger (logger)));
 				ConclusionHelper.Print (logger,
 					summary.BenchmarksCases
 						.SelectMany (benchmark => benchmark.Config.GetCompositeAnalyser ().Analyse (summary))
