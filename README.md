@@ -2,16 +2,37 @@
 
 Example of using BenchmarkDotNet to write some benchmarks for Xamarin.Forms concepts.
 
+## Using BenchmarkDotnet for Xamarin.Forms in a Console app
 
+This is likely the simplest option. Setup [BenchmarkDotNet][getting-started] as you would for a normal .NET console app.
 
-## Using BenchmarkDotNet in your own Xamarin project
+This is what I normally do:
 
-If trying to get this working in your own project, a couple of notes:
+```csharp
+static void Main(string[] args)
+{
+    var config = default (IConfig);
+#if DEBUG
+    // If you want to debug your benchmarks, you need this
+    // When taking final measurements, use a Release build.
+    config = new DebugInProcessConfig ();
+#endif
+    BenchmarkSwitcher.FromAssembly (typeof (Program).Assembly).Run (args, config);
+}
+```
+
+If you want to use Xamarin.Forms on desktop, use my [Xamarin.Forms.Mocks][mocks] mocking library.
+This will allow you to benchmark Xamarin.Forms.Core and Xamarin.Forms.Xaml independent of any platform-specific code.
+
+[getting-started]: https://benchmarkdotnet.org/articles/guides/getting-started.html
+[mocks]: https://github.com/jonathanpeppers/Xamarin.Forms.Mocks
+
+## Using BenchmarkDotNet in your Xamarin.Android/iOS project
+
+If trying to get this working in a mobile application project, a couple of notes:
 
 * Run benchmarks with `Release` builds
 * Disable the linker
-* You may need to add `<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="2.10.0" />`
-  * _This caused a "There are no benchmarks found" message without it._
 
 Otherwise, the bulk of the work is going to be making a simple UI for choosing benchmarks and running them.
 
