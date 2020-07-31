@@ -6,4 +6,8 @@
     <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="2.0.49" ExcludeAssets="build" />
     <PackageReference Include="Xamarin.Forms" Version="4.7.0.1179" />
   </ItemGroup>
+  <!--NuGet packages to opt into-->
+  <ItemGroup>
+    <PackageReference Update="Xamarin.Forms.Mocks" Version="4.7.0.1" />
+  </ItemGroup>
 </Project>

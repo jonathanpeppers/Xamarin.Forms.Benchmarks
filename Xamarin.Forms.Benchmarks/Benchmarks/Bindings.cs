@@ -9,7 +9,7 @@ namespace Xamarin.Forms.Benchmarks
 	}
 
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
-	public class Bindings
+	public class Bindings : BaseBenchmark
 	{
 		BindingData bindingContext = new BindingData {
 			Text = "Foo"

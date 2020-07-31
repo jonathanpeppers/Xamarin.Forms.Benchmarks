@@ -3,4 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms.Mocks" />
+  </ItemGroup>
 </Project>

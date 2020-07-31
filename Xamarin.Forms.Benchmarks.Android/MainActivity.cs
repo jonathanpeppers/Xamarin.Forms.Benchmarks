@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Android.App;
 using Android.Content.PM;
@@ -16,6 +16,7 @@ namespace Xamarin.Forms.Benchmarks.Droid
 
 			base.OnCreate (savedInstanceState);
 
+			BaseBenchmark.Renderer = new NativeViewRenderer ();
 			global::Xamarin.Forms.Forms.Init (this, savedInstanceState);
 			LoadApplication (new App ());
 		}

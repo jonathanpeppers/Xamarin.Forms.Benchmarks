@@ -4,14 +4,15 @@ using BenchmarkDotNet.Order;
 namespace Xamarin.Forms.Benchmarks
 {
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
-	public class Layouts
+	public class Layouts : BaseBenchmark
 	{
 		const int ViewCount = 100;
 		const int ViewSize = 10;
-		static BoxView [] Views;
 		static readonly Thickness Empty = new Thickness (0);
+		static BoxView [] Views;
 
-		static Layouts ()
+		[GlobalSetup]
+		public void GlobalSetup()
 		{
 			Views = new BoxView [ViewCount];
 			for (int i = 0; i < Views.Length; i++) {
@@ -49,7 +50,7 @@ namespace Xamarin.Forms.Benchmarks
 				}
 				horizontalStack.Children.Add (Views [i]);
 			}
-			var request = verticalStack.Measure (double.MaxValue, double.MaxValue);
+			Renderer.CreateNativeView (verticalStack);
 		}
 
 		[Benchmark]
@@ -70,7 +71,7 @@ namespace Xamarin.Forms.Benchmarks
 				Grid.SetRow (view, i % ViewSize);
 				grid.Children.Add (view);
 			}
-			var request = grid.Measure (double.MaxValue, double.MaxValue);
+			Renderer.CreateNativeView (grid);
 		}
 
 		[Benchmark]
@@ -89,7 +90,7 @@ namespace Xamarin.Forms.Benchmarks
 				AbsoluteLayout.SetLayoutBounds (view, rect);
 				layout.Children.Add (view);
 			}
-			var request = layout.Measure (double.MaxValue, double.MaxValue);
+			Renderer.CreateNativeView (layout);
 		}
 	}
 }
