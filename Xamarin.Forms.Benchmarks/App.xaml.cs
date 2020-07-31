@@ -1,26 +1,12 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-namespace Xamarin.Forms.Benchmarks {
-	public partial class App : Application {
+namespace Xamarin.Forms.Benchmarks
+{
+	public partial class App : Application
+	{
 		public App ()
 		{
 			InitializeComponent ();
 
-			MainPage = new MainPage ();
-		}
-
-		protected override void OnStart ()
-		{
-		}
-
-		protected override void OnSleep ()
-		{
-		}
-
-		protected override void OnResume ()
-		{
+			MainPage = new NavigationPage (new MainPage ());
 		}
 	}
 }

@@ -1,48 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Class="Xamarin.Forms.Benchmarks.MainPage">
-    <ContentPage.Padding>
-        <OnPlatform x:TypeArguments="Thickness">
-            <OnPlatform.Platforms>
-                <On Platform="iOS" Value="0,44,0,0" />
-            </OnPlatform.Platforms>
-        </OnPlatform>
-    </ContentPage.Padding>
-    <Grid RowSpacing="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button
-            x:Name="Run"
-            Text="Run"
-            Margin="10,10,10,0"
-            Clicked="Button_Clicked" />
-        <ScrollView x:Name="Scroller" Orientation="Both" Grid.Row="1">
-            <Label
-                x:Name="Summary"
-                Grid.Row="1"
-                Padding="10">
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <OnPlatform.Platforms>
-                            <On Platform="Android" Value="monospace" />
-                            <On Platform="iOS" Value="Courier" />
-                        </OnPlatform.Platforms>
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-        </ScrollView>
-        <ActivityIndicator
-            x:Name="Indicator"
-            Grid.RowSpan="2"
-            Color="DarkGray"
-            HorizontalOptions="Center"
-            VerticalOptions="Center" />
-    </Grid>
+    x:Class="Xamarin.Forms.Benchmarks.MainPage"
+    Title="Select a Benchmark">
+  <ListView x:Name="List" ItemsSource="{Binding}" ItemTapped="ListView_ItemTapped">
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <TextCell Text="{Binding}" />
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
 </ContentPage>
