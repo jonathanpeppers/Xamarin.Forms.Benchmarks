@@ -8,6 +8,7 @@ namespace Xamarin.Forms.Benchmarks
 		public string Text { get; set; }
 	}
 
+	[MemoryDiagnoser]
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
 	public class Bindings : BaseBenchmark
 	{

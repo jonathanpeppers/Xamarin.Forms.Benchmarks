@@ -3,6 +3,7 @@ using BenchmarkDotNet.Order;
 
 namespace Xamarin.Forms.Benchmarks
 {
+	[MemoryDiagnoser]
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
 	public class Layouts : BaseBenchmark
 	{
