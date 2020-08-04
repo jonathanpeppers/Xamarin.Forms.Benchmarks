@@ -6,7 +6,15 @@ namespace Xamarin.Forms.Benchmarks
 {
 	class BindingData : INotifyPropertyChanged
 	{
-		public string Text { get; set; }
+		string text;
+
+		public string Text {
+			get => text;
+			set {
+				text = value;
+				PropertyChanged?.Invoke (this, new PropertyChangedEventArgs (nameof (Text)));
+			}
+		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
 	}
