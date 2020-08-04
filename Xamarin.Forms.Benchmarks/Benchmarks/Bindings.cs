@@ -1,14 +1,18 @@
+using System.ComponentModel;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 
 namespace Xamarin.Forms.Benchmarks
 {
-	class BindingData
+	class BindingData : INotifyPropertyChanged
 	{
 		public string Text { get; set; }
+
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 
 	[MemoryDiagnoser]
+	[IterationCount (10)] // NOTE: I needed to cap the iterations, as BDN was going on and on
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
 	public class Bindings : BaseBenchmark
 	{

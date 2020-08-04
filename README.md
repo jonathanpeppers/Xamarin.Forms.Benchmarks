@@ -4,17 +4,16 @@ Example of using BenchmarkDotNet to write some benchmarks for Xamarin.Forms conc
 
 ## Results of different bindings
 
+Running on Windows .NET framework:
+
 |         Method |     Mean |     Error |    StdDev |  Gen 0 |  Gen 1 | Gen 2 | Allocated |
 |--------------- |---------:|----------:|----------:|-------:|-------:|------:|----------:|
-|         ByHand | 3.150 us | 0.0234 us | 0.0208 us | 0.5531 | 0.0038 |     - |   3.42 KB |
-|  ByHandOneTime | 3.156 us | 0.0439 us | 0.0366 us | 0.5531 | 0.0038 |     - |   3.42 KB |
-|   TypedOneTime | 3.972 us | 0.0188 us | 0.0176 us | 0.8163 | 0.0076 |     - |   5.05 KB |
-|          Typed | 4.866 us | 0.0702 us | 0.0622 us | 0.9079 | 0.0076 |     - |   5.61 KB |
-| RegularOneTime | 5.386 us | 0.0191 us | 0.0179 us | 0.9079 | 0.0076 |     - |   5.61 KB |
-|        Regular | 5.598 us | 0.1091 us | 0.1883 us | 0.9003 | 0.0076 |     - |   5.58 KB |
-
-_NOTE:_ There may be a bug in Xamarin.Forms, as `ByHandOneTime` has the same
-memory usage as `ByHand`.
+|  ByHandOneTime | 3.210 us | 0.0836 us | 0.0553 us | 0.5531 | 0.0038 |     - |   3.42 KB |
+|   TypedOneTime | 4.087 us | 0.0560 us | 0.0370 us | 0.8163 | 0.0076 |     - |   5.05 KB |
+| RegularOneTime | 5.375 us | 0.0117 us | 0.0077 us | 0.9079 | 0.0076 |     - |   5.61 KB |
+|         ByHand | 5.552 us | 0.6508 us | 0.4305 us | 0.5951 | 0.1450 |     - |   3.71 KB |
+|          Typed | 6.992 us | 0.4679 us | 0.3095 us | 0.9155 | 0.3052 |     - |   5.67 KB |
+|        Regular | 7.822 us | 0.3988 us | 0.2638 us | 0.9460 | 0.3128 |     - |   5.86 KB |
 
 ## Using BenchmarkDotnet for Xamarin.Forms in a Console app
 
