@@ -20,7 +20,7 @@ namespace Xamarin.Forms.Benchmarks
 	}
 
 	[MemoryDiagnoser]
-	[IterationCount (10)] // NOTE: I needed to cap the iterations, as BDN was going on and on
+	[WarmupCount (10), IterationCount (10), InvocationCount (10)] // NOTE: I needed to cap the iterations, as BDN was going on and on
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
 	public class Bindings : BaseBenchmark
 	{
