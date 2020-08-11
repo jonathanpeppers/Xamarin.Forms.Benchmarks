@@ -20,7 +20,7 @@ namespace Xamarin.Forms.Benchmarks
 	}
 
 	[MemoryDiagnoser]
-	[WarmupCount (10), IterationCount (10), InvocationCount (10)] // NOTE: I needed to cap the iterations, as BDN was going on and on
+	[WarmupCount (100), IterationCount (100), InvocationCount (100)] // NOTE: I needed to cap the iterations, as BDN was going on and on
 	[Orderer (SummaryOrderPolicy.FastestToSlowest)]
 	public class Bindings : BaseBenchmark
 	{
@@ -38,42 +38,17 @@ namespace Xamarin.Forms.Benchmarks
 		}
 
 		[Benchmark]
-		public void ByHandOneTime ()
-		{
-			var label = new Label ();
-			var binding = new Binding ("Text", BindingMode.OneTime);
-			label.SetBinding (Label.TextProperty, binding);
-			label.BindingContext = bindingContext;
-		}
-
-		[Benchmark]
 		public void Regular ()
 		{
-			var label = new BindingLabel {
+			var label = new BindingLabel (false) {
 				BindingContext = bindingContext,
 			};
 		}
 
 		[Benchmark]
-		public void RegularOneTime ()
+		public void Regular2 ()
 		{
-			var label = new BindingLabelOneTime {
-				BindingContext = bindingContext,
-			};
-		}
-
-		[Benchmark]
-		public void Typed ()
-		{
-			var label = new TypedBindingLabel {
-				BindingContext = bindingContext,
-			};
-		}
-
-		[Benchmark]
-		public void TypedOneTime ()
-		{
-			var label = new TypedBindingLabelOneTime {
+			var label = new BindingLabel (true) {
 				BindingContext = bindingContext,
 			};
 		}
